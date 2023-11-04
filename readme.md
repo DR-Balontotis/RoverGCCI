@@ -1,4 +1,4 @@
-I use python 3.8.10 (64 bit)
+python 3.8.10 (64 bit)
 
 install requipments
 
