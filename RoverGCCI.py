@@ -132,7 +132,8 @@ class GCCI():
     
     def SendDataAllClient(self, data):
         for client in apiController.values():
-            client.SendData(data)
+            if client.WebSocketStatus():
+                client.SendData(data)
         return self.GetClientCount()
 
     def main_start(self):
