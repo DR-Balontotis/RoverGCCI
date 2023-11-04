@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>Rover GCCI DEMO</title>
+        
+        <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/public/css/site.css">
+        <link rel="stylesheet" href="/public/css/terminal.css">
+
+        <link href="public/fonts/Inconsolata-VariableFont_wdth,wght.ttf" rel="stylesheet">
+    </head>
+    <body>
+        <script>
+            const SERVER_URL = "{{SERVER_URL}}";
+            const SERVER_PORT = "{{SERVER_PORT}}";
+        </script>
+        
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="top-frame">
+            <div class="left-frame">
+                <div class="sticky-div">
+                    <p class="fs-3 bold left-frame-head">Other Windows</p>
+                
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">The current link item</a>
+                        <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+                        <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+                        <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                        <a class="list-group-item list-group-item-action disabled" aria-disabled="true">A disabled link item</a>
+                    </div>
+
+                    <div class="connection-settings settings-bar mt-3">
+                        <p class="fs-3 bold left-frame-head">Connection Settings</p>
+
+                        <div id="connection-status-bar" class="status-bar closed">
+                            <p class="text-center">Connection status: </p>
+                            <span class="badge rounded-pill text-bg-success">Opened</span>
+                            <span class="badge rounded-pill text-bg-danger">Closed</span>
+                        </div>
+
+                        <div class="status-bar">
+                            <p class="text-center">Connection ping: </p>
+                            <span class="badge rounded-pill text-bg-primary">-1</span>
+                        </div>
+                        
+                        <button id="connection-start-stop-button" type="button" class="btn btn-outline-primary" onclick="connection_start_stop_button_click()">Start</button>
+                    </div>
+
+                    <div class="camera-settings settings-bar mt-3">
+                        <p class="fs-3 bold left-frame-head">Camera Settings</p>
+
+                        <div id="camera-status-bar" class="status-bar closed">
+                            <p class="text-center">Camera Status: </p>
+                            <span class="badge rounded-pill text-bg-success">Opened</span>
+                            <span class="badge rounded-pill text-bg-danger">Closed</span>
+                        </div>
+
+                        <button id="camera-start-stop-button" type="button" class="btn btn-outline-primary" onclick="camera_start_stop_button_click()">Start</button>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="middle-frame">
+                <h1 class="mb-3">Main page</h1>
+    
+                <div class="view-grid">
+                    <div class="card view-window">
+                        <div class="card-body">
+                            <h5 class="card-title">Camera</h5>
+                            <div id="camera-field" class="camera-field">
+                                <!--<img id="videofield" class="video" src="\video_feed?port=0">-->
+                            </div>
+
+                            <div class="camera-port">
+                                <p id="camera-current-port" class="text-start">Port: 0</p>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Camera Port
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><button class="dropdown-item" href="#" onclick="ChangeCameraPort(0)">#1 ~ Standart</button></li>
+                                        <li><button class="dropdown-item" href="#" onclick="ChangeCameraPort(1)">#2</button></li>
+                                        <li><button class="dropdown-item" href="#" onclick="ChangeCameraPort(2)">#3</button></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card view-window">
+                        <div class="card-body">
+                            <div id="chartContainer_motor_powers" style="height: 370px; width: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="card view-window">
+                        <div class="card-body">
+                            <div id="chartContainer_battery_charge" style="height: 370px; width: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="card view-window">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                        </div>
+                    </div>
+                    <div class="card view-window">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                    <div class="card view-window">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                    <div class="card view-window">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                    <div class="card view-window">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="terminal-area">
+                    <div class="terminal-result-area">
+                        <div class="input-group">
+                            <textarea id="terminal-promt-result" class="form-control terminal" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
+                            <!-- old ---
+                            <textarea id="terminal-promt-result" class="form-control" aria-label="With textarea" readonly>Terminal results...&#13;&#10;</textarea>
+                            -->
+                        </div>
+                    </div>
+                    <div class="terminal-input-area">
+                        <div class="terminal-text-box">
+                            <div class="input-group mb-3">
+                                <input id="terminal-promt-input" type="text" class="form-control" placeholder="Terminal">
+                            </div>
+                        </div>
+                        <div class="terminal-send-button">
+                            <button type="button" class="btn btn-outline-primary" onclick="sendTerminalPromt()">SEND</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <img src="documents/Yeditepe-Universitesi-Logo.png" class="img-7tepe-logo" alt="...">
+            <p class="fs-6">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        </div>
+
+        <script src="public/js/jquery-3.7.1.min.js"></script>
+        <script src="public/js/site-charts.js"></script>
+        <script src="public/js/site-control.js"></script>
+        <script src="public/js/terminal.js"></script>
+        <script src="public/js/interface_api.js"></script>
+        <!--<script src="bootstrap/js/bootstrap.min.js"></script>-->
+        <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="canvasJS/canvasjs.min.js"></script>
+    </body>
+</html>
