@@ -154,7 +154,7 @@ class GCCI():
         self.lock = threading.Lock()
         
         print("Site dir:", server_dir)
-        print(f'Listening on http://{server_url}:{server_port} (click on me)')
+        print(f'Listening on http://{server_url}:{server_port}')
 
     def make_app(self):
         global server_url, server_port, server_dir
